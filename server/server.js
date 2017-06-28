@@ -18,14 +18,19 @@ io.on('connection', (socket) => {
         text: "Supp?",
         createdAt: 124
     });*/
-    socket.on('createMessage', (text)=> {
-        console.log(text)
+    socket.on('createMessage', (message)=> {
+        console.log(message)
+        io.emit('newMessage',{
+            from : message.from,
+            text : message.text,
+            createAt : new Date().getTime()
+        })
     })
-    socket.emit('newMessage', {
+   /* socket.emit('newMessage', {
         from : "sabika",
         text : "hello from server!",
         createAt : 123123
-    })
+    })*/
     /*socket.on('createEmail', (email) => {
         console.log(email)
     })*/

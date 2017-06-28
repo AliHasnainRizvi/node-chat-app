@@ -6,10 +6,10 @@ socket.on('connect', function () {
         to: 'sabik@google.com',
         text: "hey this is Ali"
     })*/
-    socket.emit('createMessage', {
+  /*  socket.emit('createMessage', {
         from: 'Hasnain',
         text: 'Hello from client!'
-    })
+    })*/
 })
 socket.on('disconnect', function () {
     console.log("Unable to connect to server")
