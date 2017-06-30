@@ -13,31 +13,37 @@ app.use(express.static(publicPath))
 io.on('connection', (socket) => {
     console.warn("New Connection")
 
-    /*socket.emit('newEmail', {
-        from: 'ali@google.com',
-        text: "Supp?",
-        createdAt: 124
-    });*/
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: "Welcome, to chat room!",
+        createdAt: new Date().getTime()
+    });
+     socket.broadcast.emit('newMessage',{
+            from : 'Admin',
+            text : 'New User Joined',
+            createAt : new Date().getTime()
+        })
+       
     socket.on('createMessage', (message)=> {
         console.log(message)
-        io.emit('newMessage',{
+        /*io.emit('newMessage',{
+            from : message.from,
+            text : message.text,
+            createAt : new Date().getTime()
+        }) */
+    
+    socket.broadcast.emit('newMessage',{
             from : message.from,
             text : message.text,
             createAt : new Date().getTime()
         })
-    })
-   /* socket.emit('newMessage', {
-        from : "sabika",
-        text : "hello from server!",
-        createAt : 123123
-    })*/
-    /*socket.on('createEmail', (email) => {
-        console.log(email)
-    })*/
+        })
+  
     socket.on('disconnect', () => {
         console.log("User was disconneccted!")
     })
 })
+
 server.listen(port, () => {
     console.log(`at port  ${port} `)
 })
